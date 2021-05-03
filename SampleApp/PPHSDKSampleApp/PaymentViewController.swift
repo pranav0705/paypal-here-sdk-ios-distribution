@@ -39,7 +39,7 @@ class PaymentViewController: UIViewController, PPHRetailSDKAppDelegate {
     var paymentMethod: PPRetailInvoicePaymentMethod?
     var options = PPRetailTransactionBeginOptions.defaultOptions()
     var formFactorArray: [PPRetailFormFactor] = []
-    var currencySymbol: String!
+    var currencySymbol: String = ""
     let manuallyEnteredCard = PPRetailManuallyEnteredCard()
     var manuallyEnteredCardPresent = false
 
@@ -202,7 +202,8 @@ class PaymentViewController: UIViewController, PPHRetailSDKAppDelegate {
 
         let formatter = NumberFormatter()
         formatter.generatesDecimalNumbers = true
-      let price = formatter.number(from: invAmount.text?.replacingOccurrences(of: "\(currencySymbol)", with: "") ?? "0") as? NSDecimalNumber
+        let invAmountNumber = invAmount.text?.replacingOccurrences(of: "\(currencySymbol)", with: "")
+        let price = formatter.number(from: invAmountNumber ?? "0") as? NSDecimalNumber
 
         mInvoice.addItem("My Order", quantity: 1, unitPrice: price, itemId: 123, detailId: nil)
 
